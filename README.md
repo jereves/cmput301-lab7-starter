@@ -42,10 +42,11 @@ answered Oct 12, 2010 at 10:35Wroclai
 https://stackoverflow.com/questions/3591465/on-android-how-do-you-switch-activities-programmatically
 - Had a problem with activity resetting when returning
 - I used implementation of OnSaveInstanceState() and onRestoreInstanceState()
-
+- I attemped implementation but failed. Although the code is more unclean, i went with passing the array of strings in a bundle between activities
 
 ## Verbal Collaboration
 
 `N/A`
+
 
 
