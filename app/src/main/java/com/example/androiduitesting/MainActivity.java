@@ -1,9 +1,12 @@
 package com.example.androiduitesting;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
         //String []cities ={"Edmonton", "Vancouver", "Moscow", "Sydney", "Berlin", "Vienna", "Tokyo", "Beijing", "Osaka", "New Delhi"};
 
         dataList = new ArrayList<>();
+        Bundle b = getIntent().getExtras();
+        if (b!=null) {
+            dataList = b.getStringArrayList("dataList");
+        }
 
         //dataList.addAll(Arrays.asList(cities));
 
@@ -64,5 +71,44 @@ public class MainActivity extends AppCompatActivity {
                 cityAdapter.clear();
             }
         });
+
+        cityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent showIntent = new Intent(MainActivity.this, ShowActivity.class);
+
+                String cityToDisplay = cityAdapter.getItem(i);
+
+
+                Bundle b = new Bundle();
+                // save dataList too so that you pass it back
+                b.putString("cityName", cityToDisplay);
+                b.putStringArrayList("dataList", dataList);
+
+                showIntent.putExtras(b);
+
+                startActivity(showIntent);
+            }
+        });
+
+    }
+
+    // BEFORE YOU SWITCH ACTIVITES
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle saveState) {
+
+        super.onSaveInstanceState(saveState);
+        // SAVE ALL CITIES
+        saveState.putStringArrayList("cityStrings" , dataList);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedState) {
+        super.onRestoreInstanceState(savedState);
+
+        dataList = savedState.getStringArrayList("cityStrings");
+
+        cityAdapter = new ArrayAdapter<>(this, R.layout.content, dataList);
+        cityList.setAdapter(cityAdapter);
     }
 }
