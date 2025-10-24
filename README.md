@@ -44,9 +44,24 @@ https://stackoverflow.com/questions/3591465/on-android-how-do-you-switch-activit
 - I used implementation of OnSaveInstanceState() and onRestoreInstanceState()
 - I attemped implementation but failed. Although the code is more unclean, i went with passing the array of strings in a bundle between activities
 
+https://developer.android.com/reference/androidx/test/espresso/intent/rule/IntentsTestRule 
+- IntentsTestRule was deprecated in favour of ActivityScenarioRule
+
+https://stackoverflow.com/questions/33624802/android-espresso-intents-test-randomly-fail-with-init-must-be-called-prior-t
+- I had the same error while trying to implement Intents. I followed the following direcive
+```
+Two Solutions:
+
+    Use ActivityTestRule instead of IntentsTestRule and then in your @Before and @After manually call Intents.init() and Intents.release() respectively.
+```
+answered Jan 5, 2016 at 23:31
+JabKnowsNothing's user avatar
+JabKnowsNothing
+
 ## Verbal Collaboration
 
 `N/A`
+
 
 
 
